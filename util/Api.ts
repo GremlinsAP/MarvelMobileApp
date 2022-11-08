@@ -32,7 +32,11 @@ export class Api {
     }
 
     public async getCharacters() {
-        const raw = await this.axiosInstance.get("/characters");
+        return await this.getData("characters");
+    }
+
+    private async getData<T>(endpoint:string):Promise<T> {
+        const raw = await this.axiosInstance.get(endpoint);
         const data = raw.data;
         return data;
     }
