@@ -1,3 +1,5 @@
+import { MainData } from './interfaces/MainData';
+import { Characters } from './interfaces/Characters';
 import axios, { AxiosInstance } from "axios";
 
 export class Api {
@@ -22,9 +24,9 @@ export class Api {
 
         this.axiosInstance.interceptors.request.use(config => {
             config.params = {
-                ts: 0,
-                apikey: "",
-                hash: "",
+                ts: 1,
+                apikey: "9567d009e641913ca6da0fb89b3275d1",
+                hash: "f5dc8827a5a81d6df3a6b8ac68cc4417",
                 ...config.params,
             };
             return config;
@@ -32,12 +34,12 @@ export class Api {
     }
 
     public async getCharacters() {
-        return await this.getData("characters");
+        return await this.getData<Characters>("/characters");
     }
 
-    private async getData<T>(endpoint:string):Promise<T> {
+    private async getData<T>(endpoint: string): Promise<T> {
         const raw = await this.axiosInstance.get(endpoint);
-        const data = raw.data;
-        return data;
+        const data: MainData<T> = raw.data;
+        return data.data;
     }
 }
