@@ -2,6 +2,7 @@ import { BaseData } from './interfaces/BaseData';
 import { MainData } from './interfaces/MainData';
 import axios, { AxiosInstance } from "axios";
 import { Character } from './interfaces/Character';
+import { Comic } from './interfaces/Comic';
 
 export class Api {
 
@@ -36,6 +37,10 @@ export class Api {
 
     public async getCharacters() {
         return await this.getData<Character>("/characters");
+    }
+
+    public async getComics() {
+        return await this.getData<Comic>("/comics");
     }
 
     private async getData<T>(endpoint: string): Promise<T[]> {

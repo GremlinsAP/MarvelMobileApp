@@ -4,9 +4,6 @@ import React from "react";
 import { Character } from '../util/interfaces/Character';
 import { Api } from '../util/Api';
 
-interface TimerProps {
-  interval: number
-}
 
 const Characters = () =>
 {
