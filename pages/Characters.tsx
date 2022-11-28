@@ -1,30 +1,37 @@
-import { Text, View, TextInput, StyleSheet, StyleProp, ViewStyle,Button } from 'react-native';
-import { useEffect,useState } from "react";
+import { Text, View } from "react-native";
+import { useEffect, useState } from "react";
 import React from "react";
-import { Character } from '../util/interfaces/Character';
-import { Api } from '../util/Api';
+import { Character } from "../util/interfaces/Character";
+import { Api } from "../util/Api";
+import { ApiResponse } from "../util/ApiResponse";
 
-interface TimerProps {
-  interval: number
-}
+const Characters = () => {
+  const [character, setCharacter] = useState<Character[]>([]);
 
-const Characters = () =>
-{
-    const [character, setCharacter] = useState<Character[]>([])
-    React.useEffect(() => {
-        const Character = async () => {
-          const data: Character[] = await Api.INSTANCE.getCharacters();
-          setCharacter(data)
-        };
-        Character();
-      }, []);
-      return <>
-            {character.map(i => {
-                return<View>
-                    <Text>{i.name}</Text>
-                </View>})}
-      </>
-      }
+  useEffect(() => {
+    const data: ApiResponse<Character> = Api.INSTANCE.getCharacters();
 
+    const fetch = async () => {
+      const dataResult = await data.process();
+      setCharacter(dataResult.data);
+    };
+
+    fetch();
+
+    return () => data.controller.abort();
+  }, []);
+
+  return (
+    <>
+      {character.map((character, i) => {
+        return (
+          <View key={i}>
+            <Text>{character.name}</Text>
+          </View>
+        );
+      })}
+    </>
+  );
+};
 
 export default Characters;
