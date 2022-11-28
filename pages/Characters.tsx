@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { StyleSheet, ScrollView, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Character } from "../util/interfaces/Character";
 import { Api } from "../util/Api";
 import { ApiResponse } from "../util/ApiResponse";
+import CharacterCard from "../components/CharacterCard";
 
 const Characters = () => {
   const [character, setCharacter] = useState<Character[]>([]);
@@ -23,13 +24,11 @@ const Characters = () => {
 
   return (
     <>
-      {character.map((character, i) => {
-        return (
-          <View key={i}>
-            <Text>{character.name}</Text>
-          </View>
-        );
-      })}
+      <ScrollView>
+        {character.map((character, i) => (
+          <CharacterCard key={i} character={character} />
+        ))}
+      </ScrollView>
     </>
   );
 };
