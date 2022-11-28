@@ -3,6 +3,4 @@ export type Comic = {
     digitalId: number,
     title: string,
     issueNumber: number,
-    
-
 }
