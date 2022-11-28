@@ -2,7 +2,7 @@ import { BaseData } from './interfaces/BaseData';
 import { MainData } from './interfaces/MainData';
 import axios, { AxiosInstance } from "axios";
 import { Character } from './interfaces/Character';
-import { Comic } from './interfaces/Comic';
+import { ApiResponse } from './ApiResponse';
 
 export class Api {
 
@@ -29,23 +29,21 @@ export class Api {
                 ts: 1,
                 apikey: "9567d009e641913ca6da0fb89b3275d1",
                 hash: "f5dc8827a5a81d6df3a6b8ac68cc4417",
-                ...config.params,
+                ...config.params
             };
             return config;
         });
     }
 
-    public async getCharacters() {
-        return await this.getData<Character>("/characters");
+    public getCharacters() {
+        return this.getData<Character>("/characters");
     }
 
-    public async getComics() {
-        return await this.getData<Comic>("/comics");
-    }
+    private getData<T>(endpoint: string): ApiResponse<T>  {
+        const response = new ApiResponse<T>(async (controller) => {
+            return this.axiosInstance.get(endpoint, { signal: controller.signal });
+        });
 
-    private async getData<T>(endpoint: string): Promise<T[]> {
-        const raw = await this.axiosInstance.get(endpoint);
-        const data: MainData<T> = raw.data;
-        return data.data.results;
+        return response;
     }
 }
