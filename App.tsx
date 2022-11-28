@@ -12,11 +12,7 @@ import { Character } from "./util/interfaces/Character";
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  React.useEffect(() => {
-    const test = async () => {
-      const data: Character[] = await Api.INSTANCE.getCharacters();
-    };
-  }, []);
+
 
   return (
     <NavigationContainer>
