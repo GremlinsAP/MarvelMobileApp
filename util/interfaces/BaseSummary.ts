@@ -1,4 +1,4 @@
-export interface SeriesSummary {
+export type BaseSummary = {
     resourceURI: string;
     name: string;
 }

@@ -1,3 +1,4 @@
-export interface MainData<T> {
-    data: T;
+import { BaseData } from './BaseData';
+export type MainData<T> = {
+    data: BaseData<T>;
 }

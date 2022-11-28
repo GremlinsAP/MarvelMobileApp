@@ -1,4 +1,4 @@
-export interface Image {
+export type Image = {
     path: string;
     extension: string;
 }

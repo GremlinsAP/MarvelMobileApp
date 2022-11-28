@@ -1,5 +1,5 @@
-export interface StorySummary {
-    resourceURI: string;
-    name: string;
+import { BaseSummary } from './BaseSummary';
+
+export type StorySummary = BaseSummary & {
     type: string;
 }

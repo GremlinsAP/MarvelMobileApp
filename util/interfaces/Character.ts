@@ -1,10 +1,9 @@
-import { StoryList } from './StoryList';
-import { ComicList } from './ComicList';
+import { CollectionList } from './CollectionList';
 import { Image } from "./Image";
-import { EventList } from './EventList';
-import { SeriesList } from './SeriesList';
+import { BaseSummary } from './BaseSummary';
+import { StorySummary } from './StorySummary';
 
-export interface Character {
+export type Character = {
     id: number;
     name: string;
     description: string;
@@ -12,8 +11,8 @@ export interface Character {
     resourceURI: string;
     urls: string[];
     thumbnail: Image;
-    comics: ComicList;
-    stories: StoryList;
-    events: EventList;
-    series: SeriesList;
+    comics: CollectionList<BaseSummary>;
+    stories: CollectionList<StorySummary>;
+    events: CollectionList<BaseSummary>;
+    series: CollectionList<BaseSummary>;
 }

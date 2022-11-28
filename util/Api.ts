@@ -1,6 +1,7 @@
+import { BaseData } from './interfaces/BaseData';
 import { MainData } from './interfaces/MainData';
-import { Characters } from './interfaces/Characters';
 import axios, { AxiosInstance } from "axios";
+import { Character } from './interfaces/Character';
 
 export class Api {
 
@@ -34,12 +35,12 @@ export class Api {
     }
 
     public async getCharacters() {
-        return await this.getData<Characters>("/characters");
+        return await this.getData<Character>("/characters");
     }
 
-    private async getData<T>(endpoint: string): Promise<T> {
+    private async getData<T>(endpoint: string): Promise<T[]> {
         const raw = await this.axiosInstance.get(endpoint);
         const data: MainData<T> = raw.data;
-        return data.data;
+        return data.data.results;
     }
 }
