@@ -3,6 +3,7 @@ import { MainData } from './interfaces/MainData';
 import axios, { AxiosInstance } from "axios";
 import { Character } from './interfaces/Character';
 import { ApiResponse } from './ApiResponse';
+import { Comic } from './interfaces/Comic';
 
 export class Api {
 
@@ -37,6 +38,10 @@ export class Api {
 
     public getCharacters() {
         return this.getData<Character>("/characters");
+    }
+
+    public getComics() {
+        return this.getData<Comic>("/comics");
     }
 
     private getData<T>(endpoint: string): ApiResponse<T>  {

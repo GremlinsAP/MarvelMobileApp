@@ -5,6 +5,7 @@ import { Character } from "../util/interfaces/Character";
 import { Api } from "../util/Api";
 import { ApiResponse } from "../util/ApiResponse";
 import CharacterCard from "../components/CharacterCard";
+import Footer from "../components/Footer";
 
 const Characters = () => {
   const [character, setCharacter] = useState<Character[]>([]);
@@ -28,6 +29,7 @@ const Characters = () => {
         {character.map((character, i) => (
           <CharacterCard key={i} character={character} />
         ))}
+        <Footer footer={""} />
       </ScrollView>
     </>
   );
