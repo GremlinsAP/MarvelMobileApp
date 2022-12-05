@@ -3,7 +3,7 @@ import { BaseSummary } from "./BaseSummary";
 import { CollectionList } from "./CollectionList";
 import { ComicPrice } from "./ComicPrice";
 import { ComicDate } from "./Date";
-import { TextObject } from "./TextObjext";
+import { TextObject } from "./TextObject";
 import { Url } from "./Url";
 import { CreatorList } from './CreatorList';
 import { StorySummary } from './StorySummary';
