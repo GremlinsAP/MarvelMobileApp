@@ -36,17 +36,19 @@ export class Api {
         });
     }
 
-    public getCharacters() {
-        return this.getData<Character>("/characters");
+    public getCharacters(after: number = 0) {
+        return this.getData<Character>("/characters", {
+            offset: after
+        });
     }
 
     public getComics() {
         return this.getData<Comic>("/comics");
     }
 
-    private getData<T>(endpoint: string): ApiResponse<T>  {
+    private getData<T>(endpoint: string, data?: { offset: number }): ApiResponse<T> {
         const response = new ApiResponse<T>(async (controller) => {
-            return this.axiosInstance.get(endpoint, { signal: controller.signal });
+            return this.axiosInstance.get(endpoint, { signal: controller.signal, params: data });
         });
 
         return response;
