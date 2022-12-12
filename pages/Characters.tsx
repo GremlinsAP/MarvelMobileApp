@@ -38,7 +38,7 @@ const Characters = () => {
     fetch();
   }, [fetchMore]);
 
-  const navigation: any = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <Layout>
@@ -47,7 +47,9 @@ const Characters = () => {
         renderItem={(character) => (
           <Pressable
             onTouchEnd={(e) => {
-              navigation.navigate("Character Detail", { character: character.item });
+              navigation.navigate("Character Detail", {
+                character: character.item,
+              });
             }}
           >
             <CharacterCard key={character.index} character={character.item} />
