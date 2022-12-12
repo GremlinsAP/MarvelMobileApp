@@ -1,8 +1,9 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { FC } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Layout from "../components/Layout";
 import { Character } from "../util/interfaces/Character";
+import { DetailListPrint } from "../util/RenderUtil";
 
 type CharacterDetailProps = {
   character: Character;
@@ -15,12 +16,20 @@ const CharacterDetail = () => {
 
   return (
     <Layout>
-      <View>
-        <Text>{character.name}</Text>
-        <Text>{character.description}</Text>
+      <View style={styles.section}>
+        {DetailListPrint({
+          Name: character.name,
+          Description: character.description,
+        })}
       </View>
     </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  section: {
+    backgroundColor: "white",
+  },
+});
 
 export default CharacterDetail;
