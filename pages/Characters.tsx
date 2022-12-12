@@ -8,7 +8,7 @@ import CharacterCard from "../components/CharacterCard";
 import Footer from "../components/Footer";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const Characters = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,7 +38,7 @@ const Characters = () => {
     fetch();
   }, [fetchMore]);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<{ navigate: (link:string, data: {}) => void; }>();
 
   return (
     <Layout>
