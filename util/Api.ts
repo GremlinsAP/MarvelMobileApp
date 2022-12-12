@@ -48,7 +48,7 @@ export class Api {
         });
     }
 
-    private getData<T>(endpoint: string, data?: { offset: number }): ApiResponse<T> {
+    private getData<T>(endpoint: string, data?: {}): ApiResponse<T> {
         const response = new ApiResponse<T>(async (controller) => {
             return this.axiosInstance.get(endpoint, { signal: controller.signal, params: data });
         });

@@ -13,7 +13,6 @@ import { Comic } from "../util/interfaces/Comic";
 import { Api } from "../util/Api";
 import { ApiResponse } from "../util/ApiResponse";
 import ComicCard from "../components/ComicCard";
-import Footer from "../components/Footer";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
 
@@ -32,15 +31,16 @@ const Comics = () => {
       const actualResult = dataResult.data;
 
       if (actualResult.length === 0) setNoMoreData(true);
+      else {
+        const filtered = actualResult.filter(c => comic.findIndex(r => r.id == c.id) == -1);
 
-      setComic([...comic, ...actualResult]);
-      setLoading(false);
-      setFetchMore(false);
+        setComic([...comic, ...filtered]);
+        setLoading(false);
+        setFetchMore(false);
+      }
     };
 
     fetch();
-
-    return () => data.controller.abort();
   }, [fetchMore]);
 
   return (

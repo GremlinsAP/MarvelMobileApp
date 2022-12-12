@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Character } from "../util/interfaces/Character";
@@ -8,6 +8,7 @@ import CharacterCard from "../components/CharacterCard";
 import Footer from "../components/Footer";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
+import { useNavigation } from "@react-navigation/native";
 
 const Characters = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -26,35 +27,42 @@ const Characters = () => {
       const actualResult = dataResult.data;
 
       if (actualResult.length === 0) setNoMoreData(true);
+      else {
+        setCharacter([...character, ...actualResult]);
 
-      setCharacter([...character, ...actualResult]);
-      setLoading(false);
-      setFetchMore(false);
+        setLoading(false);
+        setFetchMore(false);
+      }
     };
 
     fetch();
-
-    return () => data.controller.abort();
   }, [fetchMore]);
+
+  const navigation: any = useNavigation();
 
   return (
     <Layout>
-          <FlatList
-            data={character}
-            renderItem={(character) => (
-              <CharacterCard key={character.index} character={character.item} />
-            )}
-            onEndReached={(e) => !noMoreData && setFetchMore(true)}
-          />
+      <FlatList
+        data={character}
+        renderItem={(character) => (
+          <Pressable
+            onTouchEnd={(e) => {
+              navigation.navigate("Character Detail", { character: character.item });
+            }}
+          >
+            <CharacterCard key={character.index} character={character.item} />
+          </Pressable>
+        )}
+        onEndReached={(e) => !noMoreData && setFetchMore(true)}
+      />
 
-          {noMoreData && (
-            <Text style={{ textAlign: "center", fontSize: 30 }}>
-              There are no characters left!
-            </Text>
-          )}
-        
-        {loading && (<Text>Loading...</Text>)}
-      
+      {noMoreData && (
+        <Text style={{ textAlign: "center", fontSize: 30 }}>
+          There are no characters left!
+        </Text>
+      )}
+
+      {loading && <Text>Loading...</Text>}
     </Layout>
   );
 };
