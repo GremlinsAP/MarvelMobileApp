@@ -1,11 +1,5 @@
 import {
-  StyleSheet,
-  ScrollView,
   Text,
-  View,
-  ListView,
-  ListViewComponent,
-  ListViewDataSource,
 } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -13,7 +7,6 @@ import { Comic } from "../util/interfaces/Comic";
 import { Api } from "../util/Api";
 import { ApiResponse } from "../util/ApiResponse";
 import ComicCard from "../components/ComicCard";
-import Footer from "../components/Footer";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
 
