@@ -1,38 +1,34 @@
-import React from "react"
+import React from "react";
 import { FC } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 
 type FooterProps = {
-    footer: string;
-  };
+  footer: string;
+};
 
-const Footer: FC<FooterProps> = ({}) => {
-    return (
-        <View style={styles.footer}>
-          <Text style={{ fontSize: 20, alignSelf: "center", marginTop: "auto", marginBottom: "auto", color: "white", backgroundColor: "black" }}>
-            Data provided by Marvel. © 2014 Marvel
-          </Text>
-        </View>
-      );
-    };
-    
-    var styles = StyleSheet.create({
-      container: {
-          flex: 1,
-          backgroundColor: '#F5FCFF',
-      },
-      titleWrapper: {
-  
-      },
-      inputWrapper: {
-  
-      },
-      contentContainer: {
-          flex: 1 // pushes the footer to the end of the screen
-      },
-      footer: {
-          height: 100
-      }
-  });
+const Footer: FC<FooterProps> = ({ footer }) => {
+  return (
+    <View style={styles.footer}>
+      <Text style={styles.text}>{footer}</Text>
+    </View>
+  );
+};
 
-    export default Footer;
+const styles = StyleSheet.create({
+  footer: {
+    marginTop: "auto",
+    marginBottom: 5
+  },
+
+  text: {
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    fontSize: 20,
+    alignSelf: "center",
+    marginTop: "auto",
+    color: "white",
+    backgroundColor: "black",
+  },
+});
+
+export default Footer;
