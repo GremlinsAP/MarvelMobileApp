@@ -1,11 +1,5 @@
 import {
-  StyleSheet,
-  ScrollView,
   Text,
-  View,
-  ListView,
-  ListViewComponent,
-  ListViewDataSource,
 } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";

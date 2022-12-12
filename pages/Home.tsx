@@ -1,10 +1,6 @@
 import * as React from "react";
-import { useState } from "react";
 import { Text, Image } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import Footer from "../components/Footer";
 import Layout from "../components/Layout";
-import Characters from "./Characters";
 
 const Home = () => (
   <Layout>
