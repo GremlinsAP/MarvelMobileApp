@@ -16,17 +16,23 @@ const Footer: FC<FooterProps> = ({}) => {
       );
     };
     
-    const styles = StyleSheet.create({
-    footer: {
-      display: "flex",
-      position: "absolute",
-      left: 0,
-      bottom: 0,
-      width: 100,
-      backgroundcolor: "red",
-      color: "white",
-      textAlign: "center",
+    var styles = StyleSheet.create({
+      container: {
+          flex: 1,
+          backgroundColor: '#F5FCFF',
       },
-    });
+      titleWrapper: {
+  
+      },
+      inputWrapper: {
+  
+      },
+      contentContainer: {
+          flex: 1 // pushes the footer to the end of the screen
+      },
+      footer: {
+          height: 100
+      }
+  });
 
     export default Footer;

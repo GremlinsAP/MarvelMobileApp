@@ -1,10 +1,14 @@
 import * as React from 'react';
 import {useState} from 'react';
-import { Text, Image } from 'react-native';
+import { Text, Image, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Footer from '../components/Footer';
 import Characters from './Characters';
+import {useNavigate } from 'react-router-dom';
 
+let navigate = useNavigate();
+
+let pathCharacters = "./Characters"
 
 const Home = () => 
 <ScrollView>
@@ -20,6 +24,8 @@ Welcome at the Marvel page.
 Here you can look for characters and commics from Marvel. 
 Here you can get information on your favorite comics and heroes.
 </Text>
+
+<button onClick={() => navigate(pathCharacters)}>View</button>
 
 <Footer footer={''} />
     </ScrollView>
