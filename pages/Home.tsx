@@ -2,6 +2,8 @@ import * as React from 'react';
 import {useState} from 'react';
 import { Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Footer from '../components/Footer';
+import Characters from './Characters';
 
 
 const Home = () => 
@@ -18,5 +20,7 @@ Welcome at the Marvel page.
 Here you can look for characters and commics from Marvel. 
 Here you can get information on your favorite comics and heroes.
 </Text>
+
+<Footer footer={''} />
     </ScrollView>
 export default Home;

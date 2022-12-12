@@ -42,8 +42,10 @@ export class Api {
         });
     }
 
-    public getComics() {
-        return this.getData<Comic>("/comics");
+    public getComics(after: number = 0) {
+        return this.getData<Comic>("/comics", {
+            offset: after
+        });
     }
 
     private getData<T>(endpoint: string, data?: { offset: number }): ApiResponse<T> {

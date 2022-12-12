@@ -18,8 +18,14 @@ const Footer: FC<FooterProps> = ({}) => {
     
     const styles = StyleSheet.create({
     footer: {
-        width: "100%",
-        height: 100,
+      display: "flex",
+      position: "absolute",
+      left: 0,
+      bottom: 0,
+      width: 100,
+      backgroundcolor: "red",
+      color: "white",
+      textAlign: "center",
       },
     });
 
