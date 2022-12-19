@@ -7,6 +7,7 @@ import Comics from "./pages/Comics";
 import Favorites from "./pages/Favorites";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CharacterDetail from "./pages/CharacterDetail";
+import ComicDetail from "./pages/ComicDetail";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Character Detail" component={CharacterDetail} />
+        <Stack.Screen name="Comic Detail" component={ComicDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

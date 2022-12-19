@@ -1,4 +1,5 @@
 import {
+  Pressable,
   Text,
 } from "react-native";
 import { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ import { ApiResponse } from "../util/ApiResponse";
 import ComicCard from "../components/ComicCard";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
+import { useNavigation } from "@react-navigation/native";
 
 const Comics = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,12 +39,21 @@ const Comics = () => {
     fetch();
   }, [fetchMore]);
 
+  const navigation: any = useNavigation();
+
+
   return (
     <Layout>
       <FlatList
         data={comic}
         renderItem={(comic) => (
-          <ComicCard key={comic.index} comic={comic.item} />
+          <Pressable
+            onTouchEnd={(e) => {
+              navigation.navigate("Comic Detail", { comic: comic.item });
+            }}
+          >
+            <ComicCard key={comic.index} comic={comic.item} />
+          </Pressable>
         )}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
       />
