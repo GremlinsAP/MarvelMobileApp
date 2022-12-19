@@ -19,7 +19,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ character }) => {
         <Text style={styles.card__heading}>{character.name}</Text>
         <Text style={styles.card__content__description}>
           {character.description.length > 60
-            ? character.description.substring(0, 150).concat("...")
+            ? character.description?.substring(0, 150).concat("...")
             : character.description ||
               "This character does not have a description."}
         </Text>

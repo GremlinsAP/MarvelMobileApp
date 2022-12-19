@@ -21,8 +21,8 @@ const ComicDetail = () => {
                 {DetailListPrint({
                     Name: comic.title,
                     Series: comic.series.name,
-                    Description: comic.description.length > 60
-                        ? comic.description.substring(0, 500).concat("...")
+                    Description: comic.description?.length > 60
+                        ? comic.description.substring(0, 150).concat("...")
                         : comic.description ||
                         "This comic does not have a description."
                 })}
@@ -36,18 +36,18 @@ const ComicDetail = () => {
                 />
             </NamedSection>
             <NamedSection title="Characters">
-                {comic.characters.items.map((character) => {
+                {comic.characters.items.length > 0 ? comic.characters.items.map((character, i) => {
                     return (
-                        <Text>{character.name.endsWith("") ? "this comic has no characters available" : character.name}</Text>
+                        <Text key={i}>{character.name}</Text>
                     );
-                })}
+                }): <Text style={styles.centeredMessage}>This comic has no characters available</Text>}
             </NamedSection>
             <NamedSection title="Creators">
-                {comic.creators.items.map((creator) => {
+                {comic.creators.items.length > 0 ? comic.creators.items.map((creator, i) => {
                     return (
-                        <Text>{creator.name}</Text>
+                        <Text key={i}>{creator.name}</Text>
                     );
-                })}
+                }) :  <Text style={styles.centeredMessage}>This comic has no creators available</Text>}
             </NamedSection>
         </ScrollView>
     </Layout>
@@ -62,4 +62,9 @@ const styles = StyleSheet.create({
         height: 450,
         alignSelf: "center"
     },
+
+    centeredMessage: {
+        fontWeight: "bold",
+        alignSelf: "center"
+    }
 });

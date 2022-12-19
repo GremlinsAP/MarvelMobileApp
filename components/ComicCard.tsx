@@ -17,7 +17,7 @@ const ComicCard: FC<ComicCardProps> = ({ comic }) => {
       />
        <View style={styles.card__content}>
         <Text style={styles.heading}>{comic.title}</Text>
-        <Text>{comic.series.name}</Text>
+        <Text>{comic.series.name.length > 60 ? comic.series.name.substring(0, 60).concat("...") : comic.series.name}</Text>
       </View>
     </View>
   );
