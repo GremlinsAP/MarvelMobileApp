@@ -47,6 +47,12 @@ export class Api {
             offset: after
         });
     }
+    
+    public getComicsForCharacter(characterId: number) {
+        return this.getData<Comic>(`/characters/${characterId}/comics`, {
+            limit: 5
+        });
+    }
 
     private getData<T>(endpoint: string, data?: {}): ApiResponse<T> {
         const response = new ApiResponse<T>(async (controller) => {

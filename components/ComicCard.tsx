@@ -15,7 +15,7 @@ const ComicCard: FC<ComicCardProps> = ({ comic }) => {
           uri: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
         }}
       />
-      <View>
+       <View style={styles.card__content}>
         <Text style={styles.heading}>{comic.title}</Text>
         <Text>{comic.series.name}</Text>
       </View>
@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
     margin: 15,
     padding: 5,
     backgroundColor: "#FFF",
+    maxHeight: 100,
+  },
+
+  card__content: {
+    flex: 2,
+    width: "100%",
   },
 
   image: {
@@ -42,7 +48,8 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontSize: 20,
+    fontSize: 16,
+    fontWeight:"bold"
   },
 
   footer: {

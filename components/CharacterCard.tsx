@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
 
   card__heading: {
     fontSize: 20,
+    fontWeight:"bold"
   },
 });
 
