@@ -16,7 +16,11 @@ const NamedSection: FC<NamedSectionProps> = ({ title, children }) => {
 const styles = StyleSheet.create({
     section: {
         backgroundColor: "white",
-        marginTop: 10
+        marginTop: 10,
+        width: "95%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        padding: 5
     },
 
     title: {
