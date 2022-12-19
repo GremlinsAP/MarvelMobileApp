@@ -1,14 +1,13 @@
-import { Pressable, Text } from "react-native";
+import { Text } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Character } from "../util/interfaces/Character";
 import { Api } from "../util/Api";
 import { ApiResponse } from "../util/ApiResponse";
 import CharacterCard from "../components/CharacterCard";
-import Footer from "../components/Footer";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import InteractiveLoadingText from "../components/InteractiveLoadingText";
 
 const Characters = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -17,9 +16,7 @@ const Characters = () => {
   const [noMoreData, setNoMoreData] = useState<boolean>(false);
 
   useEffect(() => {
-    const data: ApiResponse<Character> = Api.INSTANCE.getCharacters(
-      character.length
-    );
+    const data: ApiResponse<Character> = Api.INSTANCE.getCharacters(character.length);
 
     const fetch = async () => {
       const dataResult = await data.process();
@@ -29,7 +26,6 @@ const Characters = () => {
       if (actualResult.length === 0) setNoMoreData(true);
       else {
         setCharacter([...character, ...actualResult]);
-
         setLoading(false);
         setFetchMore(false);
       }
@@ -38,22 +34,12 @@ const Characters = () => {
     fetch();
   }, [fetchMore]);
 
-  const navigation = useNavigation<{ navigate: (link:string, data: {}) => void; }>();
-
   return (
     <Layout>
       <FlatList
         data={character}
         renderItem={(character) => (
-          <Pressable
-            onTouchEnd={(e) => {
-              navigation.navigate("Character Detail", {
-                character: character.item,
-              });
-            }}
-          >
-            <CharacterCard key={character.index} character={character.item} />
-          </Pressable>
+          <CharacterCard key={character.index} character={character.item} />
         )}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
       />
@@ -63,8 +49,8 @@ const Characters = () => {
           There are no characters left!
         </Text>
       )}
-
-      {loading && <Text>Loading...</Text>}
+      
+      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30 }} />}
     </Layout>
   );
 };

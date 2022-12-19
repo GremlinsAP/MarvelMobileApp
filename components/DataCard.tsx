@@ -15,7 +15,7 @@ const DataCard: FC<DataCardProps> = ({ imagePath, title, description, type }) =>
             <Image
                 style={styles.card__image}
                 source={{
-                    uri: imagePath,
+                    uri: imagePath.includes("image_not_available") ? "https://i.redd.it/7z6qt753qe031.jpg" : imagePath,
                 }}
             />
             <View style={styles.card__content}>

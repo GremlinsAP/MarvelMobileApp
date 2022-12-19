@@ -11,6 +11,7 @@ import ComicCard from "../components/ComicCard";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
 import { useNavigation } from "@react-navigation/native";
+import InteractiveLoadingText from "../components/InteractiveLoadingText";
 
 const Comics = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,21 +40,12 @@ const Comics = () => {
     fetch();
   }, [fetchMore]);
 
-  const navigation: any = useNavigation();
-
-
   return (
     <Layout>
       <FlatList
         data={comic}
         renderItem={(comic) => (
-          <Pressable
-            onTouchEnd={(e) => {
-              navigation.navigate("Comic Detail", { comic: comic.item });
-            }}
-          >
-            <ComicCard key={comic.index} comic={comic.item} />
-          </Pressable>
+          <ComicCard key={comic.index} comic={comic.item} />
         )}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
       />
@@ -63,8 +55,8 @@ const Comics = () => {
           There are no comics left!
         </Text>
       )}
-
-      {loading && <Text>Loading...</Text>}
+      
+      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30 }} />}
     </Layout>
   );
 };
