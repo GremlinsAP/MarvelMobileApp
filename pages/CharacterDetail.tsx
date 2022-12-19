@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import Layout from "../components/Layout";
 import { Character } from "../util/interfaces/Character";
 import { DetailListPrint } from "../util/RenderUtil";
+import NamedSection from "../components/NamedSection";
 
 type CharacterDetailProps = {
   character: Character;
@@ -17,11 +18,15 @@ const CharacterDetail = () => {
   return (
     <Layout>
       <View style={styles.section}>
+
+      </View>
+
+      <NamedSection title="Main Info">
         {DetailListPrint({
           Name: character.name,
           Description: character.description,
         })}
-      </View>
+      </NamedSection>
     </Layout>
   );
 };
