@@ -6,54 +6,34 @@ import { Comic } from "../util/interfaces/Comic";
 import ComicCard from "./ComicCard";
 import Comics from "../pages/Comics";
 import { Character } from "../util/interfaces/Character";
+import { FavoriteItem } from "../util/interfaces/FavoriteItem";
+import { Favorites } from "../util/interfaces/Favorites";
 
-interface CommicFavorite {
-  id: number;
-  title: string;
-  date: number;
-}
-
-interface CharacterFavorite {
-  id: number;
-  name: string;
-  date: number;
-}
-
-const storeDataComic = async (comic: Comic) => {
-  let comicFavorite : CommicFavorite = {
+export const storeDataComic = async (comic: Comic) => {
+  let comicFavorite : FavoriteItem = {
+    type: "comic",
     id: comic.id,
     title: comic.title,
     date: Date.now()
   };
-  await AsyncStorage.setItem("comicFavorite", JSON.stringify(comicFavorite));
+  const currentData = await getData();
+  currentData.favoriteComics.push(comicFavorite)
+  await AsyncStorage.setItem("Favorites", JSON.stringify(currentData));
 };
 
-const storeDataCharacter = async (character: Character) => {
-  let characterFavorite : CharacterFavorite = {
+export const storeDataCharacter = async (character: Character) => {
+  let characterFavorite : FavoriteItem = {
+    type: "character",
     id: character.id,
-    name: character.name,
+    title: character.name,
     date: Date.now()
   };
-  await AsyncStorage.setItem("characterFavorite", JSON.stringify(characterFavorite));
+  const currentData = await getData();
+  currentData.favoriteCharacters.push(characterFavorite)
+  await AsyncStorage.setItem("Favorites", JSON.stringify(currentData));
 };
 
-const getData = async () => {
-  const value : string = await AsyncStorage.getItem("randomStudent");
-  if (value !== null) {
-    let student : Student = JSON.parse(value);
-    alert(student.name + " is " + student.age + " years old");
-  } else {
-    alert("No Data found");
-  }
+export const getData = async (): Promise<Favorites> => {
+  const StorageEntry = await AsyncStorage.getItem("Favorites");
+  return StorageEntry ? JSON.parse(StorageEntry) : {favoriteComics: {}, favoriteCharacters: {}}
 };
-const App = () => {
-  return (
-    <View>
-      <Text>AsyncStorage</Text>
-      <Button title="Store Data" onPress={storeDataComic} />
-      <Button title="Load Data" onPress={getData } />
-    </View>
-  );
-};
-
-export default App;

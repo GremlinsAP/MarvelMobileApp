@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { Text, StyleSheet, Image, Button } from "react-native";
+import { Text, StyleSheet, Image, Button, View } from "react-native";
 import Layout from "../components/Layout";
 import { Character } from "../util/interfaces/Character";
 import { DetailListPrint } from "../util/RenderUtil";
@@ -12,6 +12,7 @@ import { Comic } from "../util/interfaces/Comic";
 import { ScrollView } from "react-native-gesture-handler";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
 import BackToTop from "../components/BackToTop";
+import { storeDataCharacter } from "../components/LocalStorage";
 
 type CharacterDetailProps = {
   character: Character;
@@ -56,6 +57,9 @@ const CharacterDetail = () => {
   return (
     <Layout>
       <ScrollView ref={scrollRef} scrollEventThrottle={16} onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}>
+        <View>
+          <Button onPress={e => storeDataCharacter(character)} title="Add favorite comic" />
+        </View>
         <NamedSection title="Main Info">
           {DetailListPrint({
             Name: character.name,

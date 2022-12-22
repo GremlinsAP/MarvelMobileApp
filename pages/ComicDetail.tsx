@@ -5,6 +5,8 @@ import { StyleSheet, View, Text, Image, ScrollView, Button } from "react-native"
 import { RouteProp, useRoute } from "@react-navigation/native";
 import NamedSection from "../components/NamedSection";
 import { DetailListPrint } from "../util/RenderUtil";
+import { storeDataComic } from "../components/LocalStorage";
+
 
 
 type ComicDetailProps = {
@@ -18,7 +20,7 @@ const ComicDetail = () => {
     return <Layout>
         <ScrollView>
             <View>
-                <Button onPress={storeDataComic(comic)}>Add to favorite</Button>
+                <Button onPress={e => storeDataComic(comic)} title="Add favorite comic"/>
             </View>
             <NamedSection title="Main Info">
                 {DetailListPrint({
