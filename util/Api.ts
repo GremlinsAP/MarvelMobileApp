@@ -1,5 +1,3 @@
-import { BaseData } from './interfaces/BaseData';
-import { MainData } from './interfaces/MainData';
 import axios, { AxiosInstance } from "axios";
 import { Character } from './interfaces/Character';
 import { ApiResponse } from './ApiResponse';
@@ -36,37 +34,30 @@ export class Api {
         });
     }
 
-    public getCharacters(after: number = 0) {
-        return this.getData<Character>("/characters", {
-            offset: after
-        });
-    }
+    public getCharacters = (after: number = 0) => this.getData<Character>("/characters", {
+        offset: after
+    });
 
-    public getComics(after: number = 0) {
-        return this.getData<Comic>("/comics", {
-            offset: after
-        });
-    }
+    public getCharacter = (id: number) => this.getData<Character>(`/characters/${id}`);
 
-    public getComicsForCharacter(characterId: number, offset: number) {
-        return this.getData<Comic>(`/characters/${characterId}/comics`, {
-            limit: 5,
-            offset: offset
-        });
-    }
+    public getComics = (after: number = 0) => this.getData<Comic>("/comics", {
+        offset: after
+    });
 
-    public getCharactersForComics(comicId: number, offset: number) {
-        return this.getData<Character>(`/comics/${comicId}/characters`, {
-            limit: 5,
-            offset: offset
-        });
-    }
+    public getComic = (id: number) => this.getData<Comic>(`/comics/${id}`);
 
-    private getData<T>(endpoint: string, data?: {}): ApiResponse<T> {
-        const response = new ApiResponse<T>(async (controller) => {
-            return this.axiosInstance.get(endpoint, { signal: controller.signal, params: data });
-        });
+    public getComicsForCharacter = (characterId: number, offset: number) => this.getData<Comic>(`/characters/${characterId}/comics`, {
+        limit: 5,
+        offset: offset
+    });
 
-        return response;
-    }
+    public getCharactersForComics = (comicId: number, offset: number) => this.getData<Character>(`/comics/${comicId}/characters`, {
+        limit: 5,
+        offset: offset
+    });
+
+
+    private getData = <T>(endpoint: string, data?: {}): ApiResponse<T> => new ApiResponse<T>(async (controller) => {
+        return this.axiosInstance.get(endpoint, { signal: controller.signal, params: data });
+    });
 }
