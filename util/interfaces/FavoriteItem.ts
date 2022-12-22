@@ -4,5 +4,5 @@ export type FavoriteItem = {
     type: DataType;
     id: number;
     title: string;
-    date: number;
+    date?: number;
 }

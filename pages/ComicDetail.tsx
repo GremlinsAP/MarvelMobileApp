@@ -5,15 +5,13 @@ import { StyleSheet, View, Text, Image, ScrollView, Button } from "react-native"
 import { RouteProp, useRoute } from "@react-navigation/native";
 import NamedSection from "../components/NamedSection";
 import { DetailListPrint } from "../util/RenderUtil";
-import { storeDataComic } from "../components/LocalStorage";
+import FavoriteSelection from "../components/FavoriteSelection";
 import BackToTop from "../components/BackToTop";
-import { ApiResponse } from "../util/ApiResponse";
-import { Api } from "../util/Api";
 import CharacterCard from "../components/CharacterCard";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
+import { Api } from "../util/Api";
+import { ApiResponse } from "../util/ApiResponse";
 import { Character } from "../util/interfaces/Character";
-
-
 
 type ComicDetailProps = {
     comic: Comic;
@@ -55,10 +53,8 @@ const ComicDetail = () => {
     }, [fetchMore]);
 
     return <Layout>
-        <ScrollView ref={scrollRef} scrollEventThrottle={16} onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}>
-            <View>
-                <Button onPress={e => storeDataComic(comic)} title="Add favorite comic" />
-            </View>
+        <ScrollView>
+            <FavoriteSelection id={comic.id} title={comic.title} type="comic"/>
             <NamedSection title="Main Info">
                 {DetailListPrint({
                     Name: comic.title,

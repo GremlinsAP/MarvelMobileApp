@@ -12,7 +12,8 @@ import { Comic } from "../util/interfaces/Comic";
 import { ScrollView } from "react-native-gesture-handler";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
 import BackToTop from "../components/BackToTop";
-import { storeDataCharacter } from "../components/LocalStorage";
+import { isFavorited, removeFavorite } from "../util/LocalStorage";
+import FavoriteSelection from "../components/FavoriteSelection";
 
 type CharacterDetailProps = {
   character: Character;
@@ -56,10 +57,9 @@ const CharacterDetail = () => {
 
   return (
     <Layout>
-      <ScrollView ref={scrollRef} scrollEventThrottle={16} onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}>
-        <View>
-          <Button onPress={e => storeDataCharacter(character)} title="Add favorite comic" />
-        </View>
+      {!loading && <ScrollView ref={scrollRef} scrollEventThrottle={16} onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}>
+        <FavoriteSelection id={character.id} title={character.name} type={"character"} />
+
         <NamedSection title="Main Info">
           {DetailListPrint({
             Name: character.name,
@@ -74,14 +74,14 @@ const CharacterDetail = () => {
         </NamedSection>
 
         <NamedSection title="Comics">
-          {!loading && comics.length > 0 ?
+          {comics.length > 0 ?
             comics.map((comic, i) => <ComicCard key={i} comic={comic} />)
             : <Text style={styles.centeredMessage}>No Comics</Text>}
-          {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 25 }} />}
-          {noMoreData && <Text style={{ textAlign: "center", fontSize: 25 }}>No more comics for this character!</Text>}
+          {fetchMore && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 25 }} />}
+          {noMoreData && comics.length > 0 && <Text style={{ textAlign: "center", fontSize: 25 }}>No more comics for this character!</Text>}
           {!noMoreData && <Button title="Load More" onPress={(e) => setFetchMore(true)} />}
         </NamedSection>
-      </ScrollView>
+      </ScrollView>}
       {scrollOffset > 35 && <BackToTop onpress={() => {
         scrollRef.current?.scrollTo({ y: 0, animated: true });
       }} />}
