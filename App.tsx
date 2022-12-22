@@ -7,7 +7,7 @@ import Comics from "./pages/Comics";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CharacterDetail from "./pages/CharacterDetail";
 import ComicDetail from "./pages/ComicDetail";
-import FavoritesPage from "./pages/Favorites";
+import FavoritesPage from "./pages/FavoritesPage";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
