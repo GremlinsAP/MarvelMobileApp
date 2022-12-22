@@ -55,6 +55,13 @@ export class Api {
         });
     }
 
+    public getCharactersForComics(comicId: number, offset: number) {
+        return this.getData<Character>(`/comics/${comicId}/characters`, {
+            limit: 5,
+            offset: offset
+        });
+    }
+
     private getData<T>(endpoint: string, data?: {}): ApiResponse<T> {
         const response = new ApiResponse<T>(async (controller) => {
             return this.axiosInstance.get(endpoint, { signal: controller.signal, params: data });
