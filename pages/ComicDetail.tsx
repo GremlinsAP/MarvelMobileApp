@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import Layout from "../components/Layout";
 import { Comic } from "../util/interfaces/Comic";
 import { StyleSheet, View, Text, Image, ScrollView, Button } from "react-native";
@@ -6,6 +6,12 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import NamedSection from "../components/NamedSection";
 import { DetailListPrint } from "../util/RenderUtil";
 import { storeDataComic } from "../components/LocalStorage";
+import BackToTop from "../components/BackToTop";
+import { ApiResponse } from "../util/ApiResponse";
+import { Api } from "../util/Api";
+import CharacterCard from "../components/CharacterCard";
+import InteractiveLoadingText from "../components/InteractiveLoadingText";
+import { Character } from "../util/interfaces/Character";
 
 
 
@@ -17,10 +23,41 @@ const ComicDetail = () => {
     const {
         params: { comic },
     }: RouteProp<Record<string, ComicDetailProps>> = useRoute();
+
+    const scrollRef = useRef<ScrollView>(null);
+    const [scrollOffset, setScrollOffset] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [fetchMore, setFetchMore] = useState<boolean>(false);
+    const [characters, SetCharacters] = useState<Character[]>([]);
+    const [noMoreData, setNoMoreData] = useState<boolean>(false);
+
+
+    useEffect(() => {
+        const data: ApiResponse<Character> = Api.INSTANCE.getCharactersForComics(
+            comic.id,
+            characters.length
+        );
+
+        const fetch = async () => {
+            const dataResult = await data.process();
+            const actualResult = dataResult.data;
+
+            if (actualResult.length === 0) setNoMoreData(true)
+
+            SetCharacters((prev) => [...prev, ...actualResult]);
+            setLoading(false);
+            setFetchMore(false);
+        }
+
+        fetch();
+
+        return () => data.controller.abort();
+    }, [fetchMore]);
+
     return <Layout>
-        <ScrollView>
+        <ScrollView ref={scrollRef} scrollEventThrottle={16} onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}>
             <View>
-                <Button onPress={e => storeDataComic(comic)} title="Add favorite comic"/>
+                <Button onPress={e => storeDataComic(comic)} title="Add favorite comic" />
             </View>
             <NamedSection title="Main Info">
                 {DetailListPrint({
@@ -41,20 +78,24 @@ const ComicDetail = () => {
                 />
             </NamedSection>
             <NamedSection title="Characters">
-                {comic.characters.items.length > 0 ? comic.characters.items.map((character, i) => {
-                    return (
-                        <Text key={i}>{character.name}</Text>
-                    );
-                }): <Text style={styles.centeredMessage}>This comic has no characters available</Text>}
+                {!loading && characters.length > 0 ?
+                    characters.map((character, i) => <CharacterCard key={i} character={character} />)
+                    : <Text style={styles.centeredMessage}>No Characters</Text>}
+                {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 25 }} />}
+                {noMoreData && characters.length > 0 && <Text style={{ textAlign: "center", fontSize: 25 }}>No more characters for this character!</Text>}
+                {!noMoreData && <Button title="Load More" onPress={(e) => setFetchMore(true)} />}
             </NamedSection>
             <NamedSection title="Creators">
                 {comic.creators.items.length > 0 ? comic.creators.items.map((creator, i) => {
                     return (
                         <Text key={i}>{creator.name}</Text>
                     );
-                }) :  <Text style={styles.centeredMessage}>This comic has no creators available</Text>}
+                }) : <Text style={styles.centeredMessage}>This comic has no creators available</Text>}
             </NamedSection>
         </ScrollView>
+        {scrollOffset > 35 && <BackToTop onpress={() => {
+            scrollRef.current?.scrollTo({ y: 0, animated: true });
+        }} />}
     </Layout>
 
 }
