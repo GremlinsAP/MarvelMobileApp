@@ -12,7 +12,6 @@ import { Comic } from "../util/interfaces/Comic";
 import { ScrollView } from "react-native-gesture-handler";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
 import BackToTop from "../components/BackToTop";
-import { isFavorited, removeFavorite } from "../util/LocalStorage";
 import FavoriteSelection from "../components/FavoriteSelection";
 
 type CharacterDetailProps = {

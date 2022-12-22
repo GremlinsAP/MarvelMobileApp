@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Favorites } from "../util/interfaces/Favorites";
 import { getData } from "../util/LocalStorage";
 import FavoriteEntry from "../components/FavoriteEntry";
+import { ScrollView } from "react-native-gesture-handler";
 
 const FavoritesPage = () => {
 
@@ -24,17 +25,17 @@ const FavoritesPage = () => {
   
   const Characters = () => {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ScrollView>
          {!loading && favorites && favorites.favoriteCharacters.map((c, i) => <FavoriteEntry key={i} type="character" id={c.id} />)}
-      </View>
+      </ScrollView>
     );
   }
 
   const Comics = () => {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ScrollView>
          {!loading && favorites && favorites.favoriteComics.map((c, i) => <FavoriteEntry key={i} type="comic" id={c.id} />)}
-      </View>
+      </ScrollView>
     );
   }
 
