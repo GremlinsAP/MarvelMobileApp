@@ -1,6 +1,3 @@
-import React, { FC } from "react";
-
-import { View, Text, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Comic } from "../util/interfaces/Comic";
 import { Character } from "../util/interfaces/Character";
@@ -14,6 +11,7 @@ export const storeDataComic = async (comic: Comic) => {
     title: comic.title,
     date: Date.now()
   };
+
   const currentData = await getData();
   currentData.favoriteComics = [...currentData.favoriteComics, comicFavorite]
   await AsyncStorage.setItem("Favorites", JSON.stringify(currentData));
@@ -33,5 +31,5 @@ export const storeDataCharacter = async (character: Character) => {
 
 export const getData = async (): Promise<Favorites> => {
   const StorageEntry = await AsyncStorage.getItem("Favorites");
-  return StorageEntry ? JSON.parse(StorageEntry) : {favoriteComics: {}, favoriteCharacters: {}}
+  return StorageEntry ? JSON.parse(StorageEntry) : {favoriteComics: [], favoriteCharacters: []}
 };
