@@ -13,9 +13,9 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
+  const [notification, setNotification] = useState<Notifications.Notification>();
+  const notificationListener = useRef<{remove: () => void}>();
+  const responseListener = useRef<{remove: () => void}>();
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
