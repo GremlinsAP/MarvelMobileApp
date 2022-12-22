@@ -47,10 +47,11 @@ export class Api {
             offset: after
         });
     }
-    
-    public getComicsForCharacter(characterId: number) {
+
+    public getComicsForCharacter(characterId: number, offset: number) {
         return this.getData<Comic>(`/characters/${characterId}/comics`, {
-            limit: 5
+            limit: 5,
+            offset: offset
         });
     }
 

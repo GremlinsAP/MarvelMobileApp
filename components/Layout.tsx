@@ -1,4 +1,4 @@
-import { ScrollView, Image, Text, View } from "react-native";
+import { View } from "react-native";
 import Footer from "./Footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
