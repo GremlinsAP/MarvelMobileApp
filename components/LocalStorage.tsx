@@ -3,8 +3,6 @@ import React, { FC } from "react";
 import { View, Text, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Comic } from "../util/interfaces/Comic";
-import ComicCard from "./ComicCard";
-import Comics from "../pages/Comics";
 import { Character } from "../util/interfaces/Character";
 import { FavoriteItem } from "../util/interfaces/FavoriteItem";
 import { Favorites } from "../util/interfaces/Favorites";
@@ -17,7 +15,7 @@ export const storeDataComic = async (comic: Comic) => {
     date: Date.now()
   };
   const currentData = await getData();
-  currentData.favoriteComics.push(comicFavorite)
+  currentData.favoriteComics = [...currentData.favoriteComics, comicFavorite]
   await AsyncStorage.setItem("Favorites", JSON.stringify(currentData));
 };
 
@@ -29,7 +27,7 @@ export const storeDataCharacter = async (character: Character) => {
     date: Date.now()
   };
   const currentData = await getData();
-  currentData.favoriteCharacters.push(characterFavorite)
+  currentData.favoriteCharacters = [...currentData.favoriteCharacters, characterFavorite]
   await AsyncStorage.setItem("Favorites", JSON.stringify(currentData));
 };
 
