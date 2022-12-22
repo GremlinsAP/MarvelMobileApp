@@ -5,9 +5,7 @@ import { StyleSheet, View, Text, Image, ScrollView, Button } from "react-native"
 import { RouteProp, useRoute } from "@react-navigation/native";
 import NamedSection from "../components/NamedSection";
 import { DetailListPrint } from "../util/RenderUtil";
-import { storeDataComic } from "../components/LocalStorage";
-
-
+import FavoriteSelection from "../components/FavoriteSelection";
 
 type ComicDetailProps = {
     comic: Comic;
@@ -19,9 +17,7 @@ const ComicDetail = () => {
     }: RouteProp<Record<string, ComicDetailProps>> = useRoute();
     return <Layout>
         <ScrollView>
-            <View>
-                <Button onPress={e => storeDataComic(comic)} title="Add favorite comic"/>
-            </View>
+            <FavoriteSelection id={comic.id} title={comic.title} type="comic"/>
             <NamedSection title="Main Info">
                 {DetailListPrint({
                     Name: comic.title,
