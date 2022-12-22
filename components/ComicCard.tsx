@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { Comic } from "../util/interfaces/Comic";
 import DataCard from "./DataCard";
 import { useNavigation } from "@react-navigation/native";

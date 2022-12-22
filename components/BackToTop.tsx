@@ -1,6 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { FC, useRef } from 'react';
-import { FlatList } from "react-native-gesture-handler";
+import { FC } from 'react';
 
 interface BackToTopProps {
     onpress: () => void;

@@ -1,7 +1,4 @@
-import {
-  Pressable,
-  Text,
-} from "react-native";
+import { Text } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Comic } from "../util/interfaces/Comic";
@@ -10,7 +7,6 @@ import { ApiResponse } from "../util/ApiResponse";
 import ComicCard from "../components/ComicCard";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
-import { useNavigation } from "@react-navigation/native";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
 
 const Comics = () => {

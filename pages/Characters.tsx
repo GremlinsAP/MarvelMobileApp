@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import { Character } from "../util/interfaces/Character";
 import { Api } from "../util/Api";

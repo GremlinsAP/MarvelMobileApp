@@ -1,7 +1,6 @@
-import { FC } from "react";
 import Layout from "../components/Layout";
 import { Comic } from "../util/interfaces/Comic";
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, Image, ScrollView } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import NamedSection from "../components/NamedSection";
 import { DetailListPrint } from "../util/RenderUtil";

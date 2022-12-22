@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { Character } from "../util/interfaces/Character";
 
 type DataCardProps = {
     imagePath: string;

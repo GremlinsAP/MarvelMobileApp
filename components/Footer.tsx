@@ -1,6 +1,6 @@
 import React from "react";
 import { FC } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 type FooterProps = {
   footer: string;
