@@ -1,11 +1,13 @@
 import { FC } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 
+export type DataType = "character" | "comic";
+
 type DataCardProps = {
     imagePath: string;
     title: string;
     description: string;
-    type: "character" | "comic";
+    type: DataType;
 };
 
 const DataCard: FC<DataCardProps> = ({ imagePath, title, description, type }) => {
