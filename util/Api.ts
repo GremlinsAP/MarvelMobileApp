@@ -56,7 +56,7 @@ export class Api {
     }
 
     public getCharactersForComics(comicId: number, offset: number) {
-        return this.getData<Character>(`/comics/${comicId}/comics`, {
+        return this.getData<Character>(`/comics/${comicId}/characters`, {
             limit: 5,
             offset: offset
         });
