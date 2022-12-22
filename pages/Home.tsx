@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, Image } from "react-native";
+import Footer from "../components/Footer";
 import Layout from "../components/Layout";
 
 const Home = () => (
@@ -16,6 +17,7 @@ const Home = () => (
       from Marvel. Here you can get information on your favorite comics and
       heroes.
     </Text>
+    <Footer footer={"Data provided by Marvel. © 2014 Marvel"} />
   </Layout>
 );
 
