@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import { Comic } from "../util/interfaces/Comic";
 import { Api } from "../util/Api";
@@ -8,6 +8,7 @@ import ComicCard from "../components/ComicCard";
 import { FlatList } from "react-native-gesture-handler";
 import Layout from "../components/Layout";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
+import BackToTop from "../components/BackToTop";
 
 const Comics = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -36,13 +37,19 @@ const Comics = () => {
     fetch();
   }, [fetchMore]);
 
+
+  const scrollRef = useRef<FlatList>(null);
+  const [scrollOffset, setScrollOffset] = useState<number>(0);
+
   return (
     <Layout>
       {!loading && <FlatList
+        ref={scrollRef}
         data={comic}
         renderItem={(comic) => (
           <ComicCard key={comic.index} comic={comic.item} />
         )}
+        onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
       />}
 
@@ -52,7 +59,14 @@ const Comics = () => {
         </Text>
       )}
 
-      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30, marginTop:loading ? 20 : -20 }} />}
+      {scrollOffset > 15 && <BackToTop onPress={() => {
+        scrollRef.current!.scrollToOffset({
+          animated: true,
+          offset: 0
+        })
+      }} />}
+
+      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30, marginTop: loading ? 20 : -20 }} />}
     </Layout>
   );
 };

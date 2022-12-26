@@ -52,9 +52,10 @@ const ComicDetail = () => {
         return () => data.controller.abort();
     }, [fetchMore]);
 
+
     return <Layout>
-        <ScrollView>
-            <FavoriteSelection id={comic.id} title={comic.title} type="comic"/>
+        {!loading && <ScrollView ref={scrollRef} scrollEventThrottle={16} onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}>
+            <FavoriteSelection id={comic.id} title={comic.title} type="comic" />
             <NamedSection title="Main Info">
                 {DetailListPrint({
                     Name: comic.title,
@@ -88,7 +89,7 @@ const ComicDetail = () => {
                     );
                 }) : <Text style={styles.centeredMessage}>This comic has no creators available</Text>}
             </NamedSection>
-        </ScrollView>
+        </ScrollView>}
         {scrollOffset > 35 && <BackToTop onPress={() => {
             scrollRef.current?.scrollTo({ y: 0, animated: true });
         }} />}
