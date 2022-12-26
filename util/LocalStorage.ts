@@ -15,7 +15,7 @@ export const removeFavorite = async (type: DataType, id: number) => {
   const currentData = await getData();
   switch (type) {
     case "character": currentData.favoriteCharacters = currentData.favoriteCharacters.filter((d) => d.id !== id); break;
-    case "comic": currentData.favoriteComics.filter((d) => d.id !== id); break;
+    case "comic": currentData.favoriteComics = currentData.favoriteComics.filter((d) => d.id !== id); break;
   }
   saveGlobal(currentData);
 }

@@ -2,7 +2,7 @@
  * Author: Elwyn Van der Borght
  */
 
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { FavoriteItem } from "../util/interfaces/FavoriteItem";
 import { FC, useEffect, useState } from "react";
 import { Character } from "../util/interfaces/Character";

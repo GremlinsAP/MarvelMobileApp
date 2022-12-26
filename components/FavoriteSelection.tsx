@@ -12,13 +12,17 @@ type SelectionProps = Pick<FavoriteItem, "type" | "id" | "title">;
 
 const FavoriteSelection: FC<SelectionProps> = ({ type, id, title }) => {
     const [favorite, setFavorite] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const setup = async () => setFavorite(await isFavorited(id));
+        const setup = async () => {
+            setFavorite(await isFavorited(id));
+            setLoading(false);
+        }
         setup();
     }, [])
 
-    return <View>
+    return !loading ? <View>
         {!favorite ? <Button onPress={_ => {
             setFavorite((favorite) => !favorite);
             storeFavorite(createFavorite(type, id, title))
@@ -26,7 +30,7 @@ const FavoriteSelection: FC<SelectionProps> = ({ type, id, title }) => {
             setFavorite((favorite) => !favorite);
             removeFavorite(type, id);
         }} title={`Remove favorite ${type}`} />}
-    </View>
+    </View> : <></>
 }
 
 export default FavoriteSelection;
