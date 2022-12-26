@@ -12,26 +12,11 @@ Notifications.setNotificationHandler({
 });
 
 const NotificationHandler = () => {
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState<Notifications.Notification>();
   const notificationListener = useRef<{ remove: () => void }>();
   const responseListener = useRef<{ remove: () => void }>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
+    registerForPushNotificationsAsync();
   }, []);
 
   return <>
@@ -40,7 +25,7 @@ const NotificationHandler = () => {
 
 export default NotificationHandler;
 
-export const schedulePushNotification = async (title: string, body: string, data: { data: string }, delay:number = 2) => await Notifications.scheduleNotificationAsync({
+export const schedulePushNotification = async (title: string, body: string, data: { data: string } = { data: "Empty" }, delay: number = 2) => await Notifications.scheduleNotificationAsync({
   content: {
     title: title,
     body: body,
@@ -48,7 +33,6 @@ export const schedulePushNotification = async (title: string, body: string, data
   },
   trigger: { seconds: delay },
 });
-
 
 const registerForPushNotificationsAsync = async (): Promise<string> => {
   let token: string;
@@ -67,13 +51,10 @@ const registerForPushNotificationsAsync = async (): Promise<string> => {
     if (existingStatus !== 'granted')
       finalStatus = (await Notifications.requestPermissionsAsync()).status;
 
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return
-    }
-
+    if (finalStatus !== 'granted') return;
+    
     token = (await Notifications.getExpoPushTokenAsync()).data;
-  } else alert('Must use physical device for Push Notifications');
+  }
 
   return token;
 }

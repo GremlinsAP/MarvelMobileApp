@@ -13,6 +13,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import InteractiveLoadingText from "../components/InteractiveLoadingText";
 import BackToTop from "../components/BackToTop";
 import FavoriteSelection from "../components/FavoriteSelection";
+import { schedulePushNotification } from "../util/Notification";
 
 type CharacterDetailProps = {
   character: Character;
@@ -28,7 +29,6 @@ const CharacterDetail = () => {
   const [comics, setComics] = useState<Comic[]>([]);
   const [noMoreData, setNoMoreData] = useState<boolean>(false);
 
-
   useEffect(() => {
     const data: ApiResponse<Comic> = Api.INSTANCE.getComicsForCharacter(
       character.id,
@@ -41,9 +41,19 @@ const CharacterDetail = () => {
 
       if (actualResult.length === 0) setNoMoreData(true)
 
-      setComics((prev) => [...prev, ...actualResult]);
+      let fullList: Comic[];
+
+      setComics((prev) => (fullList = [...prev, ...actualResult]));
       setLoading(false);
       setFetchMore(false);
+
+      // Notification Faker
+      createFakeNotification(fullList);
+    }
+
+    const createFakeNotification = async (comics: Comic[]) => {
+      const randomComic = comics[Math.floor(Math.random() * comics.length)];
+      await schedulePushNotification(`New for: ${character.name}`, `Comic: ${randomComic.title}`)
     }
 
     fetch();
