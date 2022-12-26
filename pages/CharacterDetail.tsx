@@ -91,7 +91,7 @@ const CharacterDetail = () => {
           {!noMoreData && <Button title="Load More" onPress={(e) => setFetchMore(true)} />}
         </NamedSection>
       </ScrollView>}
-      {scrollOffset > 35 && <BackToTop onpress={() => {
+      {scrollOffset > 35 && <BackToTop onPress={() => {
         scrollRef.current?.scrollTo({ y: 0, animated: true });
       }} />}
     </Layout>

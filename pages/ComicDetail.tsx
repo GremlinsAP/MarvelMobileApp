@@ -89,7 +89,7 @@ const ComicDetail = () => {
                 }) : <Text style={styles.centeredMessage}>This comic has no creators available</Text>}
             </NamedSection>
         </ScrollView>
-        {scrollOffset > 35 && <BackToTop onpress={() => {
+        {scrollOffset > 35 && <BackToTop onPress={() => {
             scrollRef.current?.scrollTo({ y: 0, animated: true });
         }} />}
     </Layout>

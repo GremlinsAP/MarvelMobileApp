@@ -6,11 +6,11 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { FC } from 'react';
 
 interface BackToTopProps {
-    onpress: () => void;
+    onPress: () => void;
 }
 
-const BackToTop: FC<BackToTopProps> = ({ onpress }) => {
-    return <Pressable style={styles.button} onPress={onpress}>
+const BackToTop: FC<BackToTopProps> = ({ onPress }) => {
+    return <Pressable style={styles.button} onPress={onPress}>
         <Text style={styles.innerText}>^</Text>
     </Pressable>
 }

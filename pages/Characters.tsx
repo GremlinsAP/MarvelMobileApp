@@ -41,15 +41,13 @@ const Characters = () => {
 
     fetch();
   }, [fetchMore]);
-  
+
   return (
     <Layout>
       {!loading && <FlatList
         ref={scrollRef}
         data={character}
-        renderItem={(character) => (
-          <CharacterCard key={character.index} character={character.item} />
-        )}
+        renderItem={(character) => <CharacterCard key={character.index} character={character.item} />}
         onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
       />}
@@ -60,7 +58,7 @@ const Characters = () => {
         </Text>
       )}
 
-      {scrollOffset > 15 && <BackToTop onpress={() => {
+      {scrollOffset > 15 && <BackToTop onPress={() => {
         scrollRef.current!.scrollToOffset({
           animated: true,
           offset: 0
