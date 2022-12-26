@@ -14,6 +14,7 @@ const Stack = createNativeStackNavigator();
 
 export const Root = () => {
   return (
+    
     <Drawer.Navigator useLegacyImplementation>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Characters" component={Characters} />

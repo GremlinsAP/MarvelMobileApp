@@ -38,21 +38,21 @@ const Comics = () => {
 
   return (
     <Layout>
-      <FlatList
+      {!loading && <FlatList
         data={comic}
         renderItem={(comic) => (
           <ComicCard key={comic.index} comic={comic.item} />
         )}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
-      />
+      />}
 
       {noMoreData && (
         <Text style={{ textAlign: "center", fontSize: 30 }}>
           There are no comics left!
         </Text>
       )}
-      
-      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30 }} />}
+
+      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30, marginTop:loading ? 20 : -20 }} />}
     </Layout>
   );
 };

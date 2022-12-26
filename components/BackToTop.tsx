@@ -1,3 +1,7 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import { Pressable, StyleSheet, Text } from "react-native";
 import { FC } from 'react';
 

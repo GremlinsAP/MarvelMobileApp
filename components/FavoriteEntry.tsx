@@ -1,9 +1,12 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import { View, Text } from "react-native";
 import { FavoriteItem } from "../util/interfaces/FavoriteItem";
 import { FC, useEffect, useState } from "react";
 import { Character } from "../util/interfaces/Character";
 import { Comic } from "../util/interfaces/Comic";
-import { ApiResponse } from "../util/ApiResponse";
 import { Api } from "../util/Api";
 import CharacterCard from "./CharacterCard";
 import ComicCard from "./ComicCard";

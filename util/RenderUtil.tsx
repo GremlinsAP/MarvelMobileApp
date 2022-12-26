@@ -1,4 +1,8 @@
-import { Text, View } from "react-native";
+/**
+ * Author: Elwyn Van der Borght
+ */
+
+import { Text } from "react-native";
 import React from "react";
 
 export const DetailListPrint = (data: { [key: string]: string | number[] }) => {

@@ -1,3 +1,7 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import { FC, useEffect, useState } from "react";
 import { FavoriteItem } from "../util/interfaces/FavoriteItem";
 import { Button, View } from "react-native";

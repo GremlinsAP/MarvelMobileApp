@@ -1,3 +1,7 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import React, { FC } from "react";
 import { View, Text, StyleSheet } from "react-native";
 

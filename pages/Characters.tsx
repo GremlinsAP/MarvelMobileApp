@@ -1,3 +1,7 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import { Text } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import React from "react";
@@ -37,10 +41,10 @@ const Characters = () => {
 
     fetch();
   }, [fetchMore]);
-
+  
   return (
     <Layout>
-      <FlatList
+      {!loading && <FlatList
         ref={scrollRef}
         data={character}
         renderItem={(character) => (
@@ -48,7 +52,7 @@ const Characters = () => {
         )}
         onScroll={(e) => setScrollOffset(e.nativeEvent.contentOffset.y)}
         onEndReached={(e) => !noMoreData && setFetchMore(true)}
-      />
+      />}
 
       {noMoreData && (
         <Text style={{ textAlign: "center", fontSize: 30 }}>
@@ -62,7 +66,7 @@ const Characters = () => {
           offset: 0
         })
       }} />}
-      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30 }} />}
+      {(loading || fetchMore) && <InteractiveLoadingText style={{ textAlign: "center", fontSize: 30, marginTop: loading ? 20 : -20 }} />}
     </Layout>
   );
 };

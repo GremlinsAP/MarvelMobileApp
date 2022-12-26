@@ -1,4 +1,7 @@
-import { View } from "react-native";
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import Layout from "../components/Layout";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from '@expo/vector-icons';

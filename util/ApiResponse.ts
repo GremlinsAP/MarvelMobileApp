@@ -1,9 +1,12 @@
-import { Api } from './Api';
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import { AxiosResponse } from './../node_modules/axios/index.d';
 import { MainData } from "./interfaces/MainData";
 
 export class ApiResponse<T> {
-    
+
     private readonly _controller: AbortController;
     private _raw: Promise<AxiosResponse<any, any>>;
     private _data: T[] = [];

@@ -1,3 +1,7 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import React, { FC, useEffect, useState } from "react";
 import { StyleProp, Text, TextStyle } from "react-native";
 

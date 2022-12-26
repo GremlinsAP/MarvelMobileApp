@@ -1,3 +1,7 @@
+/**
+ * Author: Elwyn Van der Borght
+ */
+
 import { FC } from "react";
 import { Pressable } from "react-native";
 import { Character } from "../util/interfaces/Character";
