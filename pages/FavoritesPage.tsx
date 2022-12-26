@@ -8,7 +8,7 @@ import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from "react";
 import { Favorites } from "../util/interfaces/Favorites";
-import { getData } from "../util/LocalStorage";
+import { getData, hasChanged, setHasChanged } from "../util/LocalStorage";
 import FavoriteEntry from "../components/FavoriteEntry";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -24,12 +24,19 @@ const FavoritesPage = () => {
     }
 
     fetch();
+
+    const interval = setInterval(async () => {
+      if (await hasChanged()) {
+        fetch();
+        await setHasChanged(false);
+      }
+    }, 4000);
   }, []);
-  
+
   const Characters = () => {
     return (
       <ScrollView>
-         {!loading && favorites && favorites.favoriteCharacters.map((c, i) => <FavoriteEntry key={i} type="character" id={c.id} />)}
+        {!loading && favorites && favorites.favoriteCharacters.map((c, i) => <FavoriteEntry key={i} type="character" id={c.id} />)}
       </ScrollView>
     );
   }
@@ -37,7 +44,7 @@ const FavoritesPage = () => {
   const Comics = () => {
     return (
       <ScrollView>
-         {!loading && favorites && favorites.favoriteComics.map((c, i) => <FavoriteEntry key={i} type="comic" id={c.id} />)}
+        {!loading && favorites && favorites.favoriteComics.map((c, i) => <FavoriteEntry key={i} type="comic" id={c.id} />)}
       </ScrollView>
     );
   }

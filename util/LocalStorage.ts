@@ -30,12 +30,19 @@ export const storeFavorite = async (favorite: FavoriteItem) => {
   }
 }
 
+export const setHasChanged = async (changed: boolean = true) => await AsyncStorage.setItem("hasChanged", changed ? "true" : "false");
+
+export const hasChanged = async () => JSON.parse(await AsyncStorage.getItem("hasChanged"));
+
 export const clearFavorites = async () => saveGlobal({
   favoriteCharacters: [],
   favoriteComics: []
 });
 
-export const saveGlobal = async (favorites: Favorites) => await AsyncStorage.setItem("Favorites", JSON.stringify(favorites));
+export const saveGlobal = async (favorites: Favorites) => {
+  await AsyncStorage.setItem("Favorites", JSON.stringify(favorites));
+  await setHasChanged();
+}
 
 export const isFavorited = async (id: number) => {
   const currentData = await getData();
