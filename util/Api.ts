@@ -23,11 +23,13 @@ export class Api {
             timeout: 3000
         });
 
+        // apiKey: Public Key
+        // Hash: Private, Public + ts
         this.axiosInstance.interceptors.request.use(config => {
             config.params = {
                 ts: 1,
-                apikey: "9567d009e641913ca6da0fb89b3275d1",
-                hash: "f5dc8827a5a81d6df3a6b8ac68cc4417",
+                apikey: "",
+                hash: "",
                 ...config.params
             };
             return config;
